@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application
+	xmlns:fx="http://ns.adobe.com/mxml/2009" 
+	xmlns:s="library://ns.adobe.com/flex/spark" 
+	xmlns:mx="library://ns.adobe.com/flex/mx"
+	minWidth="800" minHeight="400"
+	width="100%" height="100%"
+	pageTitle="Follow"
+	backgroundColor="#94C0DE" preloaderChromeColor="#94C0DE" frameRate="30"
+	applicationComplete="application1_applicationCompleteHandler(event)"
+	>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			private var game:Game
+
+			protected function application1_applicationCompleteHandler(event:FlexEvent):void
+			{
+				stage.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyDown)
+				stage.addEventListener(KeyboardEvent.KEY_UP, handleKeyUp)
+				stage.addEventListener(Event.ENTER_FRAME, enterFrame)
+				game = new Game(gameWindow, topMessageLabel, bottomMessageLabel, debugLabel)
+			}
+			
+			protected function enterFrame(event:Event):void
+			{
+				game.enterFrame(event)
+			}
+			protected function handleKeyDown(event:KeyboardEvent):void
+			{
+				//game.keyDown(event.keyCode.toString())
+				//game.keyDown(String.fromCharCode(event.charCode))
+				game.keyDown(KeyCodeNames.getName(event.keyCode, event.charCode))
+			}
+			protected function handleKeyUp(event:KeyboardEvent):void
+			{
+				//game.keyUp(event.keyCode.toString())
+				game.keyUp(KeyCodeNames.getName(event.keyCode, event.charCode))
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0"  >
+        <s:fill>
+            <s:LinearGradient rotation="90">
+                <s:GradientEntry color="white" />
+                <s:GradientEntry color="haloBlue" />
+            </s:LinearGradient>
+        </s:fill>
+    </s:Rect>
+	<mx:Image id="earthImage" source="../images/earth.png" horizontalCenter="0" verticalCenter="0"/>
+	<mx:UIComponent id="gameWindow" width="100%" height="100%" />
+	<mx:Label id="debugLabel" x="24" y="33" text="" width="144" height="52"></mx:Label>
+	<mx:Label id="topMessageLabel" horizontalCenter="0" y="30" text="Toooop" fontSize="30"></mx:Label>
+	<mx:Label id="bottomMessageLabel" horizontalCenter="0" bottom="30" text="bottooooM" fontSize="30"></mx:Label>
+	
+</s:Application>
